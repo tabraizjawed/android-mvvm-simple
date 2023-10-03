@@ -8,6 +8,10 @@ class MainViewModelFactory(private val productRepository: ProductRepository) :
     ViewModelProvider.Factory {
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        return MainViewModel(productRepository) as T
+
+        if(modelClass.isAssignableFrom(MainViewModel::class.java)){
+            return MainViewModel(productRepository) as T
+        }
+        throw IllegalArgumentException("Error initializing view model")
     }
 }
